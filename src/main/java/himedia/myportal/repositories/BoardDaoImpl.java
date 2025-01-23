@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,14 +13,12 @@ import himedia.myportal.repositories.vo.BoardVo;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
-	@Autowired 
-//	SqlSession sqlSession;
+	@Autowired
 	private BoardMapper boardMapper;
 	
 	@Override
 	public List<BoardVo> selectAll() {
 //		List<BoardVo> list = sqlSession.selectList("board.selectAll");
-		
 		List<BoardVo> list = boardMapper.selectAll();
 		return list;
 	}
@@ -39,9 +36,9 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public BoardVo getContent(Integer no) {
 //		sqlSession.update("board.increaseHitCount", no);
-		boardMapper.update("board.increaseHitCount", no);
 //		BoardVo vo = sqlSession.selectOne("board.getContent", no);
-		BoardVo vo = boardMapper.selectOne(no);
+		boardMapper.increaseHitCount(no);
+		BoardVo vo = boardMapper.getContent(no);
 		return vo;
 	}
 
@@ -54,12 +51,12 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public int delete(Integer no, Integer userNo) {
-//		Map<String, Integer> map = new HashMap<>();
-//		map.put("no", no);
-//		map.put("userNo", userNo);
+		Map<String, Integer> map = new HashMap<>();
+		map.put("no", no);
+		map.put("userNo", userNo);
 		
 //		return sqlSession.delete("board.delete", map);
-		return boardMapper.delete(no, userNo);
+		return boardMapper.delete(map);
 	}
 
 }

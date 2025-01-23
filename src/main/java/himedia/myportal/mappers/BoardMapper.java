@@ -16,25 +16,22 @@ public interface BoardMapper {
 //	<select id="selectAll"	resultType="boardVo">
 	List<BoardVo> selectAll();
 	
-//	<insert id="insert" parameterType="boardVo">	
+//	<insert id="insert" parameterType="boardVo">
 	int insert(BoardVo boardVo);
+	
+//	TODO : 인자로 id를 받는 이유?
+//	<update id="increaseHitCount" parameterType="int">
+	int increaseHitCount(int id);
 	
 //	<select id="getContent" parameterType="int"	resultType="boardVo">
 	BoardVo getContent(Integer no);
-
+	
 //	<update id="update" parameterType="boardVo">
 	int update(BoardVo boardVo);
 	
 //	<delete id="delete" parameterType="map">
-	int delete(Integer no, Integer userNo);
-
-
-	void update(String string, Integer no);
-
-	BoardVo selectOne(Integer no);
-
-	
-	
+//	int delete(Integer no, Integer userNo);
+	int delete(Map<String,Integer> map);
 	
 	
 	
